@@ -7,9 +7,7 @@ class BookmarksController < ApplicationController
 
   def create
     @bookmark = Bookmark.new(bookmark_params)
-    @movie = Movie.find(params[:bookmark][:movie_id])
     @bookmark.list = @list
-    @bookmark.movie = @movie
 
     if @bookmark.save
       redirect_to list_path(@list), notice: 'Bookmark was created successfully.'
