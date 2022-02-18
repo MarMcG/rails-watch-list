@@ -1,14 +1,18 @@
 class BookmarksController < ApplicationController
+  before_action :set_list, only: [:new, :create]
+
   def new
-    @list = List.find(params[:list_id])
     @bookmark = Bookmark.new
   end
 
   def create
     @bookmark = Bookmark.new(bookmark_params)
+    @movie = Movie.find(params[:bookmark][:movie_id])
+    @bookmark.list = @list
+    @bookmark.movie = @movie
 
     if @bookmark.save
-      redirect_to @bookmark, notice: 'Bookmark was created successfully.'
+      redirect_to list_path(@list), notice: 'Bookmark was created successfully.'
     else
       render :new
     end
@@ -16,13 +20,18 @@ class BookmarksController < ApplicationController
 
   def destroy
     @bookmark = Bookmark.find(params[:id])
+    @list = @bookmark.list
     @bookmark.destroy
-    redirect_to bookmarks_url, notice: 'Bookmark was deleted'
+    redirect_to list_path(@list), notice: 'Bookmark was deleted'
   end
 
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:comment)
+    params.require(:bookmark).permit(:comment, :movie_id)
+  end
+
+  def set_list
+    @list = List.find(params[:list_id])
   end
 end
