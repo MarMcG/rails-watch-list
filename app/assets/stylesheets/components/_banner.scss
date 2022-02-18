@@ -1,0 +1,15 @@
+.banner {
+  height: 400px;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), asset-url("theatre.jpg");
+}
+.banner h1 {
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+  font-size: 50px;
+}
+.banner h3 {
+  text-align: center;
+  color: white;
+}
